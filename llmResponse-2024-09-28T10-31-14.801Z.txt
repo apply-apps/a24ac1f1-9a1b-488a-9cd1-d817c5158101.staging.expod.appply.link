@@ -1,0 +1,69 @@
+```javascript
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+import AgendaScreen from './screens/AgendaScreen';
+import SideEventsScreen from './screens/SideEventsScreen';
+import NetworkingScreen from './screens/NetworkingScreen';
+import ProfileScreen from './screens/ProfileScreen';
+
+const Tab = createBottomTabNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <View style={styles.container}>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Agenda') {
+                iconName = focused ? 'calendar' : 'calendar-outline';
+              } else if (route.name === 'Side Events') {
+                iconName = focused ? 'list' : 'list-outline';
+              } else if (route.name === 'Networking') {
+                iconName = focused ? 'people' : 'people-outline';
+              } else if (route.name === 'Profile') {
+                iconName = focused ? 'person' : 'person-outline';
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: '#F7931A',
+            tabBarInactiveTintColor: 'gray',
+            tabBarStyle: {
+              backgroundColor: 'black',
+            },
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          })}
+        >
+          <Tab.Screen name="Agenda" component={AgendaScreen} />
+          <Tab.Screen name="Side Events" component={SideEventsScreen} />
+          <Tab.Screen name="Networking" component={NetworkingScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+        </Tab.Navigator>
+      </View>
+    </NavigationContainer>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+});
+
+export default App;
+// End of App.js
+```
