@@ -8,7 +8,7 @@ const ProfileScreen = () => {
       <View style={styles.profileHeader}>
         <Image
           source={{ uri: 'https://picsum.photos/200/200' }}
-          style={styles.profileImage}
+          style={styles.profilePicture}
         />
         <Text style={styles.name}>John Doe</Text>
         <Text style={styles.jobTitle}>Blockchain Developer</Text>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   profileHeader: {
     alignItems: 'center',
   },
-  profileImage: {
+  profilePicture: {
     width: 150,
     height: 150,
     borderRadius: 75,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   company: {
-    color: '#CCCCCC',
+    color: 'gray',
     fontSize: 16,
   },
 });

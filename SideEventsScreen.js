@@ -1,35 +1,29 @@
 // screens/SideEventsScreen.js
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 const mockSideEvents = [
   {
     id: '1',
     title: 'Networking Breakfast',
     time: '08:00 AM - 09:00 AM',
-    location: 'Main Hall',
+    location: 'Main Hall'
   },
   {
     id: '2',
-    title: 'Bitcoin Mining Workshop',
-    time: '12:00 PM - 01:30 PM',
-    location: 'Room 101',
+    title: 'Bitcoin Meetup',
+    time: '07:00 PM - 09:00 PM',
+    location: 'Conference Room A'
   },
   {
     id: '3',
     title: 'Crypto Art Exhibition',
-    time: '03:00 PM - 05:00 PM',
-    location: 'Gallery Space',
-  },
-  {
-    id: '4',
-    title: 'Closing Cocktail Party',
-    time: '06:00 PM - 08:00 PM',
-    location: 'Rooftop Terrace',
+    time: 'All Day',
+    location: 'Gallery Space'
   },
 ];
 
-const SideEventItem = ({ item }) => (
+const EventItem = ({ item }) => (
   <View style={styles.eventItem}>
     <Text style={styles.title}>{item.title}</Text>
     <Text style={styles.time}>{item.time}</Text>
@@ -42,7 +36,7 @@ const SideEventsScreen = () => {
     <View style={styles.container}>
       <FlatList
         data={mockSideEvents}
-        renderItem={({ item }) => <SideEventItem item={item} />}
+        renderItem={({ item }) => <EventItem item={item} />}
         keyExtractor={item => item.id}
       />
     </View>
@@ -72,7 +66,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   location: {
-    color: '#CCCCCC',
+    color: 'gray',
     fontSize: 14,
     marginTop: 5,
   },

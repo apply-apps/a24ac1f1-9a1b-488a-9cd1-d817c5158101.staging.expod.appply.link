@@ -1,0 +1,384 @@
+```js
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+import AgendaScreen from './screens/AgendaScreen';
+import SideEventsScreen from './screens/SideEventsScreen';
+import NetworkingScreen from './screens/NetworkingScreen';
+import ProfileScreen from './screens/ProfileScreen';
+
+const Tab = createBottomTabNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <View style={styles.container}>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Agenda') {
+                iconName = focused ? 'calendar' : 'calendar-outline';
+              } else if (route.name === 'Side Events') {
+                iconName = focused ? 'list' : 'list-outline';
+              } else if (route.name === 'Networking') {
+                iconName = focused ? 'people' : 'people-outline';
+              } else if (route.name === 'Profile') {
+                iconName = focused ? 'person' : 'person-outline';
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: '#F7931A',
+            tabBarInactiveTintColor: 'gray',
+            tabBarStyle: {
+              backgroundColor: 'black',
+            },
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          })}
+        >
+          <Tab.Screen name="Agenda" component={AgendaScreen} />
+          <Tab.Screen name="Side Events" component={SideEventsScreen} />
+          <Tab.Screen name="Networking" component={NetworkingScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+        </Tab.Navigator>
+      </View>
+    </NavigationContainer>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+});
+
+export default App;
+// End of App.js
+
+```js
+// screens/AgendaScreen.js
+import React from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+
+const mockAgendaData = [
+  {
+    id: '1',
+    time: '09:00 AM',
+    title: 'Opening Keynote',
+    speaker: 'John Doe',
+    position: 'CEO, Bitcoin Inc.',
+    topic: 'The Future of Cryptocurrency'
+  },
+  {
+    id: '2',
+    time: '10:30 AM',
+    title: 'Panel Discussion',
+    speaker: 'Jane Smith',
+    position: 'Blockchain Expert',
+    topic: 'Decentralized Finance'
+  },
+  {
+    id: '3',
+    time: '02:00 PM',
+    title: 'Workshop',
+    speaker: 'Mike Johnson',
+    position: 'CTO, Crypto Solutions',
+    topic: 'Building Secure Wallets'
+  },
+];
+
+const AgendaItem = ({ item }) => (
+  <View style={styles.agendaItem}>
+    <Text style={styles.time}>{item.time}</Text>
+    <Text style={styles.title}>{item.title}</Text>
+    <Text style={styles.speaker}>{item.speaker}</Text>
+    <Text style={styles.position}>{item.position}</Text>
+    <Text style={styles.topic}>{item.topic}</Text>
+  </View>
+);
+
+const AgendaScreen = () => {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={mockAgendaData}
+        renderItem={({ item }) => <AgendaItem item={item} />}
+        keyExtractor={item => item.id}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    padding: 10,
+  },
+  agendaItem: {
+    backgroundColor: '#1A1A1A',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  time: {
+    color: '#F7931A',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  title: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 5,
+  },
+  speaker: {
+    color: 'white',
+    fontSize: 16,
+    marginTop: 5,
+  },
+  position: {
+    color: 'gray',
+    fontSize: 14,
+  },
+  topic: {
+    color: 'white',
+    fontSize: 14,
+    marginTop: 5,
+  },
+});
+
+export default AgendaScreen;
+// End of screens/AgendaScreen.js
+
+```js
+// screens/SideEventsScreen.js
+import React from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+
+const mockSideEvents = [
+  {
+    id: '1',
+    title: 'Networking Breakfast',
+    time: '08:00 AM - 09:00 AM',
+    location: 'Main Hall'
+  },
+  {
+    id: '2',
+    title: 'Bitcoin Meetup',
+    time: '07:00 PM - 09:00 PM',
+    location: 'Conference Room A'
+  },
+  {
+    id: '3',
+    title: 'Crypto Art Exhibition',
+    time: 'All Day',
+    location: 'Gallery Space'
+  },
+];
+
+const EventItem = ({ item }) => (
+  <View style={styles.eventItem}>
+    <Text style={styles.title}>{item.title}</Text>
+    <Text style={styles.time}>{item.time}</Text>
+    <Text style={styles.location}>{item.location}</Text>
+  </View>
+);
+
+const SideEventsScreen = () => {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={mockSideEvents}
+        renderItem={({ item }) => <EventItem item={item} />}
+        keyExtractor={item => item.id}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    padding: 10,
+  },
+  eventItem: {
+    backgroundColor: '#1A1A1A',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  title: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  time: {
+    color: '#F7931A',
+    fontSize: 16,
+    marginTop: 5,
+  },
+  location: {
+    color: 'gray',
+    fontSize: 14,
+    marginTop: 5,
+  },
+});
+
+export default SideEventsScreen;
+// End of screens/SideEventsScreen.js
+
+```js
+// screens/NetworkingScreen.js
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+
+const mockMessages = [
+  {
+    id: '1',
+    sender: 'Alice',
+    message: 'Hey, are you attending the keynote?',
+    avatar: 'https://picsum.photos/200/200',
+  },
+  {
+    id: '2',
+    sender: 'Bob',
+    message: 'Great presentation on DeFi!',
+    avatar: 'https://picsum.photos/200/200',
+  },
+  {
+    id: '3',
+    sender: 'Charlie',
+    message: 'Let\'s catch up at the networking event.',
+    avatar: 'https://picsum.photos/200/200',
+  },
+];
+
+const MessageItem = ({ item }) => (
+  <View style={styles.messageItem}>
+    <Image source={{ uri: item.avatar }} style={styles.avatar} />
+    <View style={styles.messageContent}>
+      <Text style={styles.sender}>{item.sender}</Text>
+      <Text style={styles.message}>{item.message}</Text>
+    </View>
+  </View>
+);
+
+const NetworkingScreen = () => {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={mockMessages}
+        renderItem={({ item }) => <MessageItem item={item} />}
+        keyExtractor={item => item.id}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    padding: 10,
+  },
+  messageItem: {
+    flexDirection: 'row',
+    backgroundColor: '#1A1A1A',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+  },
+  messageContent: {
+    flex: 1,
+  },
+  sender: {
+    color: '#F7931A',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  message: {
+    color: 'white',
+    fontSize: 14,
+    marginTop: 5,
+  },
+});
+
+export default NetworkingScreen;
+// End of screens/NetworkingScreen.js
+
+```js
+// screens/ProfileScreen.js
+import React from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
+
+const ProfileScreen = () => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.profileHeader}>
+        <Image
+          source={{ uri: 'https://picsum.photos/200/200' }}
+          style={styles.profilePicture}
+        />
+        <Text style={styles.name}>John Doe</Text>
+        <Text style={styles.jobTitle}>Blockchain Developer</Text>
+        <Text style={styles.company}>Crypto Innovations Inc.</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    padding: 20,
+  },
+  profileHeader: {
+    alignItems: 'center',
+  },
+  profilePicture: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginBottom: 20,
+  },
+  name: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  jobTitle: {
+    color: '#F7931A',
+    fontSize: 18,
+    marginBottom: 5,
+  },
+  company: {
+    color: 'gray',
+    fontSize: 16,
+  },
+});
+
+export default ProfileScreen;
+// End of screens/ProfileScreen.js
+```
