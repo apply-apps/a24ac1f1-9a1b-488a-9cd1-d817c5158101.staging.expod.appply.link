@@ -1,6 +1,6 @@
 // screens/ProfileScreen.js
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 const ProfileScreen = () => {
   return (
